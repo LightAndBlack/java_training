@@ -1,20 +1,20 @@
 package org.example;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MainTest {
 
-    @Test
-    void testSelectAction() throws WrongInputException {
-        assertEquals(1, Main.selectAction(1));
-        assertEquals(2, Main.selectAction(2));
-        assertEquals(3, Main.selectAction(3));
+    @ParameterizedTest
+    @ValueSource(ints = {0, 1, 2, 3})
+    void testSelectAction(int input) throws WrongInputException {
+        assertEquals(input, Main.selectAction(input));
     }
 
-    @Test
-    void testSelectActionWrong() {
-        assertThrows(WrongInputException.class, () -> Main.selectAction(-1));
-        assertThrows(WrongInputException.class, () -> Main.selectAction(4));
+    @ParameterizedTest
+    @ValueSource(ints = {-1, 4, 100, -100})
+    void testSelectActionWrong(int input) {
+        assertThrows(WrongInputException.class, () -> Main.selectAction(input));
     }
 }
